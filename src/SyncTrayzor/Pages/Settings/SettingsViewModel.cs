@@ -34,6 +34,7 @@ namespace SyncTrayzor.Pages.Settings
         }
 
         public bool IsNotified { get; set; }
+        public string Path { get; set; }
     }
 
     public class SettingsViewModel : Screen
@@ -80,7 +81,8 @@ namespace SyncTrayzor.Pages.Settings
         public SettingItem<SyncthingPriorityLevel> SyncthingPriorityLevel { get; }
 
         public SettingItem<string> SyncthingAddress { get; }
-
+        public SettingItem<string> DoubleClickOpenFolder { get; }
+        
         public bool CanReadAutostart { get; set; }
         public bool CanWriteAutostart { get; set; }
         public bool CanReadOrWriteAutostart => this.CanReadAutostart || this.CanWriteAutostart; 
@@ -149,6 +151,8 @@ namespace SyncTrayzor.Pages.Settings
                 LabelledValue.Create(Resources.SettingsView_TrayIconAnimation_Disabled, Services.Config.IconAnimationMode.Disabled),
             };
             this.IconAnimationMode = this.CreateBasicSettingItem(x => x.IconAnimationMode);
+
+            this.DoubleClickOpenFolder = this.CreateBasicSettingItem(x => x.DoubleClickOpenFolder);
 
             this.StartSyncthingAutomatically = this.CreateBasicSettingItem(x => x.StartSyncthingAutomatically);
             this.SyncthingPriorityLevel = this.CreateBasicSettingItem(x => x.SyncthingPriorityLevel);
@@ -302,6 +306,7 @@ namespace SyncTrayzor.Pages.Settings
                         IsWatched = configFolder.IsWatched,
                         IsWatchAllowed = !folder.IsFsWatcherEnabled,
                         IsNotified = configFolder.NotificationsEnabled,
+                        Path = folder.Path,
                     });
                 }
             }

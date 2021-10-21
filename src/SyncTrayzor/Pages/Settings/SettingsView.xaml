@@ -77,7 +77,7 @@
                                 <CheckBox DockPanel.Dock="Top" IsChecked="{Binding ShowTrayIconOnlyOnClose.Value}" Content="{l:Loc SettingsView_OnlyShowTrayIconOnClose}"/>
                                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,5,0,0">
                                     <Label Padding="0,0,5,0" Target="{Binding ElementName=DoubleClickOpenFolderSelect}" VerticalAlignment="Center" Content="Double-click opens folder:"/>
-                                    <ComboBox x:Name="DoubleClickOpenFolderSelect" ItemsSource="{Binding FolderSettings}" SelectedValuePath="FolderLabel" SelectedValue="{Binding IconAnimationMode.Value}"/>
+                                    <ComboBox x:Name="DoubleClickOpenFolderSelect" ItemsSource="{Binding FolderSettings}" SelectedValuePath="Path" SelectedValue="{Binding DoubleClickOpenFolder.Value}"/>
                                 </StackPanel>
                                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,5,0,0">
                                     <Label Padding="0,0,5,0" Target="{Binding ElementName=IconAnimationModeSelect}" VerticalAlignment="Center" Content="{l:Loc SettingsView_AnimateTrayIcon}"/>
