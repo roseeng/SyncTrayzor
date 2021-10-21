@@ -9,6 +9,7 @@ using SyncTrayzor.Syncthing.Devices;
 using SyncTrayzor.Syncthing.TransferHistory;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace SyncTrayzor.NotifyIcon
         bool ShowOnlyOnClose { get; set; }
         bool MinimizeToTray { get; set; }
         bool CloseToTray { get; set; }
+        string DoubleClickOpenFolder { get; set; }
         Dictionary<string, bool> FolderNotificationsEnabled { get; set; }
         bool ShowSynchronizedBalloonEvenIfNothingDownloaded { get; set; }
         bool ShowDeviceConnectivityBalloons { get; set; }
@@ -68,6 +70,13 @@ namespace SyncTrayzor.NotifyIcon
             set { this._closeToTray = value; this.SetShutdownMode(); }
         }
 
+        private string _doubleClickOpenFolder;
+        public string DoubleClickOpenFolder
+        {
+            get => _doubleClickOpenFolder; 
+            set { _doubleClickOpenFolder = value; }
+        }
+
         // FolderId -> is enabled
         public Dictionary<string, bool> FolderNotificationsEnabled { get; set; }
         public bool ShowSynchronizedBalloonEvenIfNothingDownloaded { get; set; }
@@ -104,7 +113,20 @@ namespace SyncTrayzor.NotifyIcon
 
             this.viewModel.WindowOpenRequested += (o, e) =>
             {
-                this.applicationWindowState.EnsureInForeground();
+                if (_doubleClickOpenFolder == null)
+                {
+                    this.applicationWindowState.EnsureInForeground();
+                }
+                else
+                {
+                    var launchStartInfo = new ProcessStartInfo()
+                    {
+                        FileName = "explorer.exe",
+                        Arguments = "" + _doubleClickOpenFolder,
+                    };
+                    Process.Start(launchStartInfo);
+                }
+
             };
             this.viewModel.WindowCloseRequested += (o, e) =>
             {

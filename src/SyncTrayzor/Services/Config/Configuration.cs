@@ -26,6 +26,7 @@ namespace SyncTrayzor.Services.Config
         public bool ShowTrayIconOnlyOnClose { get; set; }
         public bool MinimizeToTray { get; set; }
         public bool CloseToTray { get; set; }
+        public string DoubleClickOpenFolder { get; set; }
         public bool ShowDeviceConnectivityBalloons { get; set; }
         public bool ShowDeviceOrFolderRejectedBalloons { get; set; }
         public bool ShowSynchronizedBalloonEvenIfNothingDownloaded { get; set; }
